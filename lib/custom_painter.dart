@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 //! To draw a line
 class Line extends CustomPainter {
@@ -67,6 +68,55 @@ class CurvePainter extends CustomPainter {
     path.lineTo(0, size.height);
 
     canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+  
+}
+
+//! Drawing a Smiley face
+class Smiley extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Calculate the radius of the smiley face
+    var radius = size.width / 3;
+
+    // The center point for the smiley face
+    var center = Offset(size.width / 2, size.height / 2);
+
+    // Draw the head(Circle)
+    var paint = Paint()
+    ..color = Colors.yellow
+    ..style = PaintingStyle.fill;
+    canvas.drawCircle(center, radius, paint);
+
+    // Draw the left eye(circle)
+    var leftEyeCenter = Offset(center.dx - radius / 2, center.dy - radius / 3);
+    paint.color = Colors.white;
+    canvas.drawCircle(leftEyeCenter, radius / 5, paint); 
+
+    // Draw the right eye(circle)
+    var rightEyeCenter = Offset(center.dx + radius / 2, center.dy - radius / 3);
+    paint.color = Colors.white;
+    canvas.drawCircle(rightEyeCenter, radius / 5, paint);
+
+    // Draw the mouth (arc)
+    // Rect mouthRect = Rect.fromCircle(center: center, radius: radius * 0.6);
+    // paint.color = Colors.black;
+    // canvas.drawArc(mouthRect, pi * 0.2, pi * 0.6, false, paint);
+    // canvas.drawArc(mouthRect, 0, pi, false, paint);
+
+    // Draw the mouth (a simple line smile)
+    paint.color = Colors.black;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = radius / 15;
+    var smilePath = Path();
+    smilePath.moveTo(center.dx - radius / 2, center.dy + radius / 3);
+    smilePath.quadraticBezierTo(center.dx, center.dy + radius / 1.3, center.dx + radius / 2, center.dy + radius / 3);
+    canvas.drawPath(smilePath, paint);
   }
 
   @override

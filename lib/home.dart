@@ -18,6 +18,10 @@ class Home extends StatelessWidget {
             size: Size(screenSize.width, screenSize.height),
             painter: TopCurvePainter(),
           ),
+          CustomPaint(
+            size: Size(screenSize.width, screenSize.height),
+            painter: Smiley(),
+          )
         ],
       ),
     );
